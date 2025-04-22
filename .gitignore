@@ -1,6 +1,6 @@
 .pdm-build
 .pdm-python
-__ptcache__
+__pycache__
 dist
 .venv
 tests
