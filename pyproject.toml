@@ -3,7 +3,6 @@ name = "nonebot-plugin-mhguesser"
 version = "0.1.0"
 description = "怪物猎人猜BOSS"
 authors = [
-    {name = "Proito",email = "1810308877@qq.com"},
     {name = "Proito666", email = "Proito666@github.com"},
 ]
 license = {text = "MIT"}
