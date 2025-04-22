@@ -1,11 +1,11 @@
 [project]
 name = "nonebot-plugin-mhguesser"
-version = "0.0.1"
+version = "0.1.0"
 description = "怪物猎人猜BOSS"
 authors = [
-    {name = "Proito",email = "1810308877@qq.com"}
+    {name = "Proito",email = "1810308877@qq.com"},
 ]
-license = "MIT"
+license = {text = "MIT"}
 readme = "README.md"
 packages = [{include = "nonebot_plugin_mhguesser"}]
 repository = "https://github.com/Proito666/nonebot-plugin-mhguesser"
@@ -16,6 +16,9 @@ nonebot2 = "^2.2.1"
 nonebot-plugin-htmlrender = "^0.2.0"
 nonebot-plugin-alconna = "^0.25.0"
 
+
+[tool.pdm]
+distribution = true
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"

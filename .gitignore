@@ -1,2 +1,6 @@
+.pdm-build
+.pdm-python
+__ptcache__
 dist
 .venv
+testpdm publish
