@@ -9,6 +9,12 @@ license = {text = "MIT"}
 readme = "README.md"
 packages = [{include = "nonebot_plugin_mhguesser"}]
 repository = "https://github.com/Proito666/nonebot-plugin-mhguesser"
+dependencies = [
+    "python>=3.9",
+    "nonebot-plugin-htmlrender>=0.2.0",
+    "nonebot-plugin-alconna>=0.25.0",
+    "nonebot2>=2.3.2",
+]
 
 [tool.poetry.dependencies]
 python = "^3.9"
