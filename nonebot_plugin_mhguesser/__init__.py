@@ -6,7 +6,6 @@ from nonebot.rule import Rule
 from nonebot.typing import T_State
 require("nonebot_plugin_alconna")
 from nonebot_plugin_alconna import UniMessage, Image, on_alconna
-import logging
 from .config import Config
 
 from .game import MonsterGuesser
@@ -26,7 +25,6 @@ mhstart - 开始游戏
 )
 
 game = MonsterGuesser()
-logger = logging.getLogger(__name__)
 driver = get_driver()
 
 def is_playing() -> Rule:
