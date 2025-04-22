@@ -1,0 +1,21 @@
+[project]
+name = "nonebot-plugin-mhguesser"
+version = "0.0.1"
+description = "怪物猎人猜BOSS"
+authors = [
+    {name = "Proito",email = "1810308877@qq.com"}
+]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "nonebot_plugin_mhguesser"}]
+repository = "https://github.com/Proito666/nonebot-plugin-mhguesser"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+nonebot2 = "^2.2.1"
+nonebot-plugin-htmlrender = "^0.2.0"
+nonebot-plugin-alconna = "^0.25.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../styles/common.css">
+    <style>
+        .match-row { background-color: #e8f5e9 !important; }
+        .mismatch-row { background-color: #ffebee !important; }
+        .size-higher { background-color: #fff3e0; }
+        .size-lower { background-color: #e3f2fd; }
+        .attr-match {
+            background-color: #81c784;
+            padding: 2px 5px;
+            border-radius: 4px;
+            color: white;
+        }
+        .attempts-warning {
+            color: #d32f2f;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div style="font-weight:bold; margin-bottom:10px;">当前猜测: {{ monster_name }}</div>
+    <table>
+        <tr class="{{ 'match-row' if baseId_correct else 'mismatch-row' }}">
+            <td width="30%">原种编号</td>
+            <td>{{ baseId }}</td>
+        </tr>
+        <tr class="{{ 'match-row' if variants_correct else 'mismatch-row' }}">
+            <td>原种衍生种数量</td>
+            <td>{{ variants }}</td>
+        </tr>
+        <tr class="{{ 'match-row' if variantType_correct else 'mismatch-row' }}">
+            <td>衍生种类</td>
+            <td>{{ variantType }}</td>
+        </tr>
+        <tr class="{{ 'match-row' if debut_correct else 'mismatch-row' }}">
+            <td>初登场作品</td>
+            <td>{{ debut }}</td>
+        </tr>
+        <tr class="{{ 'match-row' if species_correct else 'mismatch-row' }}">
+            <td>怪物种族</td>
+            <td>{{ species }}</td>
+        </tr>
+        <tr class="size-{{ size_class }}">
+            <td>尺寸</td>
+            <td>{{ size }}</td>
+        </tr>
+        <tr class="{{ 'match-row' if has_match else 'mismatch-row' }}">
+            <td>属性/异常</td>
+            <td>{{ attributes | safe }}</td>
+        </tr>
+    </table>
+    <div style="margin-top:15px; {{ 'class="attempts-warning"' if attempts_left < 3 else '' }}">
+        剩余尝试次数: {{ attempts_left }}
+    </div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+/* 基础样式 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 15px;
+    line-height: 1.6;
+}
+
+/* 体型比较特殊样式 */
+.size-higher td:nth-child(2)::after {
+    content: " ↑";
+    color: #ff8f00;
+    font-weight: bold;
+}
+.size-lower td:nth-child(2)::after {
+    content: " ↓";
+    color: #0277bd;
+    font-weight: bold;
+}
+.size-same td:nth-child(2)::after {
+    content: " ✓";
+    color: #2e7d32;
+    font-weight: bold;
+}

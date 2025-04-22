@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../styles/common.css">
+    <style>
+        .answer-card {
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .answer-title {
+            color: #2e7d32;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+        .answer-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .answer-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .answer-table td:first-child {
+            font-weight: bold;
+            width: 30%;
+        }
+    </style>
+</head>
+<body>
+    <div class="answer-card">
+        <div class="answer-title">正确答案: {{ name }}</div>
+        <table class="answer-table">
+            <tr><td>原种编号</td><td>{{ baseId }}</td></tr>
+            <tr><td>原种衍生种数量</td><td>{{ variants }}</td></tr>
+            <tr><td>衍生种类</td><td>{{ variantType }}</td></tr>
+            <tr><td>初登场作品</td><td>{{ debut }}</td></tr>
+            <tr><td>怪物种族</td><td>{{ species }}</td></tr>
+            <tr><td>尺寸</td><td>{{ size }}</td></tr>
+            <tr><td>属性/异常</td><td>{{ attributes }}</td></tr>
+        </table>
+    </div>
+</body>
+</html>
