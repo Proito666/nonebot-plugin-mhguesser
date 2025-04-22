@@ -5,6 +5,8 @@ from nonebot.matcher import Matcher
 from nonebot.rule import Rule
 from nonebot.typing import T_State
 require("nonebot_plugin_alconna")
+require("nonebot_plugin_htmlrender")
+
 from nonebot_plugin_alconna import UniMessage, Image, on_alconna
 from .config import Config
 
