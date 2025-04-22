@@ -3,4 +3,4 @@
 __ptcache__
 dist
 .venv
-testpdm publish
+tests
