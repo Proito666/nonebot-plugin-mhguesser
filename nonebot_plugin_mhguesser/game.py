@@ -28,7 +28,6 @@ class MonsterGuesser:
             "guesses": [],
             "start_time": datetime.now()
         }
-        print(f"新游戏开始，目标怪物: {self.games[group_id]['monster']['name']}")
         return self.games[group_id]
     
     def guess(self, event: Event, name: str) -> Tuple[bool, Optional[Dict], Dict]:
@@ -42,7 +41,6 @@ class MonsterGuesser:
 
         game["guesses"].append(guessed)
         current = game["monster"]
-        print(f"新游戏开始，目标怪物{current}: 猜测怪物：{guessed}")
 
         comparison = {
             "species": guessed["species"] == current["species"],
