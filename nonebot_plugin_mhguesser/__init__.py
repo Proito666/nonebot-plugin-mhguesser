@@ -1,10 +1,10 @@
-from nonebot import on_message
+from nonebot import on_message, get_driver, require
 from nonebot.plugin import PluginMetadata
 from nonebot.adapters import Event
 from nonebot.matcher import Matcher
 from nonebot.rule import Rule
-from nonebot import get_driver
 from nonebot.typing import T_State
+require("nonebot_plugin_alconna")
 from nonebot_plugin_alconna import UniMessage, Image, on_alconna
 import logging
 from .config import Config

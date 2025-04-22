@@ -1,5 +1,5 @@
 [project]
-name = "nonebot_plugin_mhguesser"
+name = "nonebot-plugin-mhguesser"
 version = "0.1.1"
 description = "怪物猎人猜BOSS"
 authors = [
@@ -7,6 +7,7 @@ authors = [
 ]
 license = {text = "MIT"}
 readme = "README.md"
+packages = [{include = "nonebot_plugin_mhguesser"}]
 repository = "https://github.com/Proito666/nonebot-plugin-mhguesser"
 dependencies = [
     "nonebot2<3.0.0,>=2.3.0",
