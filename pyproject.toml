@@ -12,7 +12,7 @@ repository = "https://github.com/Proito666/nonebot-plugin-mhguesser"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-nonebot2 = "^2.2.1"
+nonebot2 = "^2.3.0"
 nonebot-plugin-htmlrender = "^0.2.0"
 nonebot-plugin-alconna = "^0.25.0"
 
