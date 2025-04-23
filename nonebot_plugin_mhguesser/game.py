@@ -8,7 +8,7 @@ from .config import plugin_config
 
 class MonsterGuesser:
     def __init__(self):
-        self.games: Dict[str, Dict] = {}  # 直接使用event的session_id作为键
+        self.games: Dict[str, Dict] = {} 
         self.data_path = Path(__file__).parent / "resources/data/monsters.json"
         self.monsters = self._load_data()
         self.max_attempts = plugin_config.mhguesser_max_attempts
@@ -17,14 +17,15 @@ class MonsterGuesser:
         with open(self.data_path, "r", encoding="utf-8") as f:
             return json.load(f)
     
+    def get_session_id(self, event) -> str:
+        return f"group_{event.group_id}" if hasattr(event, "group_id") else f"user_{event.user_id}"
+
+
     def get_game(self, event: Event) -> Optional[Dict]:
-        try:
-            return self.games[event.get_session_id()]
-        except (AttributeError, KeyError):
-            return None
+        return self.games.get(self.get_session_id(event))
     
     def start_new_game(self, event: Event) -> Dict:
-        session_id = event.get_session_id()
+        session_id = self.get_session_id(event)
         self.games[session_id] = {
             "monster": random.choice(self.monsters),
             "guesses": [],
@@ -72,6 +73,6 @@ class MonsterGuesser:
     
     def end_game(self, event: Event):
         try:
-            self.games.pop(event.get_session_id())
+            self.games.pop(self.get_session_id(event))
         except (AttributeError, KeyError):
             pass
