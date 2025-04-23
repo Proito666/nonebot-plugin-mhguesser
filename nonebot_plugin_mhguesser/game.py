@@ -20,7 +20,6 @@ class MonsterGuesser:
     def get_session_id(self, event) -> str:
         return f"group_{event.group_id}" if hasattr(event, "group_id") else f"user_{event.user_id}"
 
-
     def get_game(self, event: Event) -> Optional[Dict]:
         return self.games.get(self.get_session_id(event))
     
