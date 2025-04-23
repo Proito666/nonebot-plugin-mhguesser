@@ -8,7 +8,7 @@ from .config import plugin_config
 
 class MonsterGuesser:
     def __init__(self):
-        self.games: Dict[str, Dict] = {}  # {group_id: game_data}
+        self.games: Dict[str, Dict] = {}  # 直接使用event的session_id作为键
         self.data_path = Path(__file__).parent / "resources/data/monsters.json"
         self.monsters = self._load_data()
         self.max_attempts = plugin_config.mhguesser_max_attempts
@@ -18,17 +18,19 @@ class MonsterGuesser:
             return json.load(f)
     
     def get_game(self, event: Event) -> Optional[Dict]:
-        group_id = getattr(event, "group_id", "private")
-        return self.games.get(group_id)
+        try:
+            return self.games[event.get_session_id()]
+        except (AttributeError, KeyError):
+            return None
     
     def start_new_game(self, event: Event) -> Dict:
-        group_id = getattr(event, "group_id", "private")
-        self.games[group_id] = {
+        session_id = event.get_session_id()
+        self.games[session_id] = {
             "monster": random.choice(self.monsters),
             "guesses": [],
             "start_time": datetime.now()
         }
-        return self.games[group_id]
+        return self.games[session_id]
     
     def guess(self, event: Event, name: str) -> Tuple[bool, Optional[Dict], Dict]:
         game = self.get_game(event)
@@ -69,5 +71,7 @@ class MonsterGuesser:
         }
     
     def end_game(self, event: Event):
-        group_id = getattr(event, "group_id", "private")
-        self.games.pop(group_id, None)
+        try:
+            self.games.pop(event.get_session_id())
+        except (AttributeError, KeyError):
+            pass
