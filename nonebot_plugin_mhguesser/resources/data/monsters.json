@@ -188,6 +188,8 @@
     { "id": 99, "name": "雷神龙", "baseId": 99, "variants": 1, "variantType": "原种", "debut": "怪物猎人崛起", "species": "古龙种", "size": 3875, "attributes": "雷" },
     { "id": 99, "name": "百龙渊源雷神龙", "baseId": 99, "variants": 1, "variantType": "特殊个体", "debut": "怪物猎人崛起", "species": "古龙种", "size": 3875, "attributes": "雷/龙" },
     { "id": 100, "name": "蛮颚龙", "baseId": 100, "variants": 2, "variantType": "原种", "debut": "怪物猎人世界", "species": "兽龙种", "size": 1646.4, "attributes": "火" },
+    { "id": 100, "name": "雷颚龙", "baseId": 100, "variants": 2, "variantType": "亚种", "debut": "怪物猎人世界冰原", "species": "兽龙种", "size": 1646.4, "attributes": "雷" },
+    { "id": 100, "name": "护雷颚龙", "baseId": 100, "variants": 2, "variantType": "护龙", "debut": "怪物猎人荒野", "species": "造龙种", "size": 1646.4, "attributes": "雷" },   
     { "id": 101, "name": "大贼龙", "baseId": 101, "variants": 0, "variantType": "原种", "debut": "怪物猎人世界", "species": "牙龙种", "size": 1109.6, "attributes": "无" },
     { "id": 102, "name": "毒妖鸟", "baseId": 102, "variants": 1, "variantType": "原种", "debut": "怪物猎人世界", "species": "鸟龙种", "size": 1102.4, "attributes": "毒" },
     { "id": 102, "name": "水妖鸟", "baseId": 102, "variants": 1, "variantType": "亚种", "debut": "怪物猎人世界冰原", "species": "鸟龙种", "size": 1102.4, "attributes": "水" },
