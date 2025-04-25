@@ -8,6 +8,9 @@ _✨ <怪物猎人猜BOSS> ✨_
 <a href="./LICENSE">
     <img src="https://img.shields.io/github/license/Proito666/nonebot-plugin-mhguesser" alt="license">
 </a>
+<a href="https://pypi.python.org/pypi/nonebot_plugin_mhguesser">
+  <img alt="PyPI - Version" src="https://img.shields.io/pypi/v/nonebot_plugin_mhguesser">
+</a>
 <img src="https://img.shields.io/badge/python-3.9+-blue.svg" alt="python">
 </div>
 
