@@ -76,7 +76,7 @@ class MonsterGuesser:
         name_pinyin = ''.join(lazy_pinyin(name))  # 转换输入名称为拼音
         pinyin_matches = [self.monster_names[i] for i, pinyin in enumerate(self.pinyin_monsters) if pinyin == name_pinyin]
         
-        all_matches = list(set(pinyin_matches + difflib_matches))
+        all_matches = list(dict.fromkeys(pinyin_matches + difflib_matches))
         return all_matches
 
     def _compare_attributes(self, guess_attr: str, target_attr: str) -> Dict:
