@@ -1,5 +1,7 @@
 import random
 import json
+import difflib
+from pypinyin import lazy_pinyin
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 from datetime import datetime
@@ -12,7 +14,9 @@ class MonsterGuesser:
         self.data_path = Path(__file__).parent / "resources/data/monsters.json"
         self.monsters = self._load_data()
         self.max_attempts = plugin_config.mhguesser_max_attempts
-    
+        self.monster_names = [m["name"] for m in self.monsters]  # 预加载怪物名称列表
+        self.pinyin_monsters = [''.join(lazy_pinyin(monster)) for monster in self.monster_names] # 预加载怪物名称拼音列表
+
     def _load_data(self) -> List[Dict]:
         with open(self.data_path, "r", encoding="utf-8") as f:
             return json.load(f)
@@ -60,6 +64,21 @@ class MonsterGuesser:
         }
         return guessed["name"] == current["name"], guessed, comparison
         
+    def find_similar_monsters(self, name: str, n: int = 3) -> List[str]:
+        # 使用difflib找到相似的怪物名称
+        difflib_matches = difflib.get_close_matches(
+            name, 
+            self.monster_names,
+            n=n,
+            cutoff=0.6  #相似度阈值（0-1之间）
+        )
+        # 通过拼音精确匹配读音一样的怪物名称
+        name_pinyin = ''.join(lazy_pinyin(name))  # 转换输入名称为拼音
+        pinyin_matches = [self.monster_names[i] for i, pinyin in enumerate(self.pinyin_monsters) if pinyin == name_pinyin]
+        
+        all_matches = list(set(pinyin_matches + difflib_matches))
+        return all_matches
+
     def _compare_attributes(self, guess_attr: str, target_attr: str) -> Dict:
         guess_attrs = guess_attr.split("/") if guess_attr else []
         target_attrs = target_attr.split("/") if target_attr else []

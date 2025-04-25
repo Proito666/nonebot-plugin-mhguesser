@@ -5,7 +5,7 @@
 groups = ["default"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:032965d792ebce46ace8cbc197408be33490645685646579bb81733f9cd3c4cf"
+content_hash = "sha256:2709b40aba4995ebffccba05b227c514d7eaa38f9f73d41f04e8a9121eee7376"
 
 [[metadata.targets]]
 requires_python = "~=3.9"
@@ -821,6 +821,22 @@ dependencies = [
 files = [
     {file = "pymdown_extensions-10.14.3-py3-none-any.whl", hash = "sha256:05e0bee73d64b9c71a4ae17c72abc2f700e8bc8403755a00580b49a4e9f189e9"},
     {file = "pymdown_extensions-10.14.3.tar.gz", hash = "sha256:41e576ce3f5d650be59e900e4ceff231e0aed2a88cf30acaee41e02f063a061b"},
+]
+
+[[package]]
+name = "pypinyin"
+version = "0.54.0"
+requires_python = "!=3.0.*,!=3.1.*,!=3.2.*,<4,>=2.6"
+summary = "汉字拼音转换模块/工具."
+groups = ["default"]
+dependencies = [
+    "argparse; python_version < \"2.7\"",
+    "enum34; python_version < \"3.4\"",
+    "typing; python_version < \"3.5\"",
+]
+files = [
+    {file = "pypinyin-0.54.0-py2.py3-none-any.whl", hash = "sha256:5f776f19b9fd922e4121a114810b22048d90e6e8037fb1c07f4c40f987ae6e7a"},
+    {file = "pypinyin-0.54.0.tar.gz", hash = "sha256:9ab0d07ff51d191529e22134a60e109d0526d80b7a80afa73da4c89521610958"},
 ]
 
 [[package]]

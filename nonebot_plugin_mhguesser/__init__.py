@@ -85,7 +85,12 @@ async def handle_guess(event: Event):
         return
     
     if not guessed:
-        await guess_matcher.finish("怪物名称不正确，请重新输入")
+        similar = game.find_similar_monsters(guess_name)
+        if not similar:
+            return
+        err_msg = f"未找到怪物【{guess_name}】！\n尝试以下结果：" + "、".join(similar)
+        await guess_matcher.finish(err_msg)
+            
     
     attempts_left = game.max_attempts - len(game_data["guesses"])
     # 检查尝试次数
