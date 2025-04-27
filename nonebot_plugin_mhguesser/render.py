@@ -36,13 +36,10 @@ async def render_guess_result(
         variants_correct=comparison["variants"],
         variantType=guessed_monster["variantType"],
         variantType_correct=comparison["variantType"],
-        size={
-            "higher": f"{guessed_monster['size']} (偏大)",
-            "lower": f"{guessed_monster['size']} (偏小)",
-            "same": f"{guessed_monster['size']}"
-        }[comparison["size"]],
+        size=guessed_monster['size'],
         size_class=comparison["size"],
         attributes=attributes_html,
+        iconUrl=guessed_monster["iconUrl"],
         has_match=bool(comparison["attributes"]["common"])
     )
     return await md_to_pic(html, width=600)
@@ -60,7 +57,8 @@ async def render_correct_answer(monster: Dict) -> bytes:
             baseId=monster.get("baseId", 0),
             size=monster.get("size", ""),
             attributes=monster.get("attributes", ""),
-            variants=monster.get("variants", 0)
+            variants=monster.get("variants", 0),
+            iconUrl=monster.get("iconUrl", "")
         ),
         width=600
     )

@@ -1,12 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="../styles/common.css">
     <style>
-        .match-row { background-color: #e8f5e9 !important; }
+        body {
+            margin: 15px;
+            line-height: 1.6;
+        }
+        /* 体型比较特殊样式 */
+        .size-higher td:nth-child(2)::after {
+            content: " (偏大) ↑";
+            color: #0277bd;
+            font-weight: bold;
+        }
+        .size-lower td:nth-child(2)::after {
+            content: " (偏小) ↓";
+            color: #ff8f00;
+            font-weight: bold;
+        }
+        .size-same td:nth-child(2)::after {
+            content: " ✓";
+            color: #2e7d32;
+            font-weight: bold;
+        }
+        .guess-title{
+            font-weight:bold; 
+            font-size: 1.3em;
+            margin-bottom:10px;
+        }
+        .match-row,.size-same { background-color: #e8f5e9 !important; }
         .mismatch-row { background-color: #ffebee !important; }
-        .size-higher { background-color: #fff3e0; }
-        .size-lower { background-color: #e3f2fd; }
+        .size-higher { background-color: #e3f2fd !important; }
+        .size-lower { background-color: #fff3cd !important; }
         .attr-match {
             background-color: #81c784;
             padding: 2px 5px;
@@ -17,10 +41,19 @@
             color: #d32f2f;
             font-weight: bold;
         }
+        .monster-icon {
+            display: inline-block;
+            height: 5em;
+            vertical-align: middle;
+            margin-left: 8px;
+        }
     </style>
 </head>
 <body>
-    <div style="font-weight:bold; margin-bottom:10px;">当前猜测: {{ monster_name }}</div>
+    <div class="guess-title">
+        当前猜测: {{ monster_name }}
+        <img src="{{ iconUrl }}" class="monster-icon">
+    </div>
     <table>
         <tr class="{{ 'match-row' if baseId_correct else 'mismatch-row' }}">
             <td width="30%">原种编号</td>
@@ -51,7 +84,7 @@
             <td>{{ attributes | safe }}</td>
         </tr>
     </table>
-    <div style="margin-top:15px; {{ 'class="attempts-warning"' if attempts_left < 3 else '' }}">
+    <div style="margin-top:15px;" class="{{ 'attempts-warning' if attempts_left <= 3 else '' }}">
         剩余尝试次数: {{ attempts_left }}
     </div>
 </body>
