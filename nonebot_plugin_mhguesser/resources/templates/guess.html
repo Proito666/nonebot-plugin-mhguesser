@@ -5,6 +5,22 @@
         body {
             margin: 15px;
             line-height: 1.6;
+            position: relative;
+            max-width: {{ width }}px;
+            text-align: center;
+        }
+        body::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url("{{ image }}");
+            background-size: {{ width }}px auto;
+            background-position: center center;
+            opacity: 0.5;
+            z-index: -1;
+        }
+        table {
+            margin: 0 auto;
         }
         /* 体型比较特殊样式 */
         .size-higher td:nth-child(2)::after {
@@ -27,10 +43,10 @@
             font-size: 1.3em;
             margin-bottom:10px;
         }
-        .match-row,.size-same { background-color: #e8f5e9 !important; }
-        .mismatch-row { background-color: #ffebee !important; }
-        .size-higher { background-color: #e3f2fd !important; }
-        .size-lower { background-color: #fff3cd !important; }
+        .match-row,.size-same { background-color: rgba(232, 245, 233, 0.5) !important; }
+        .mismatch-row { background-color: rgba(255, 235, 238, 0.5) !important; }
+        .size-higher { background-color: rgba(227, 242, 253, 0.5) !important; }
+        .size-lower { background-color: rgba(255, 243, 205, 0.5) !important; }
         .attr-match {
             background-color: #81c784;
             padding: 2px 5px;
@@ -56,7 +72,7 @@
     </div>
     <table>
         <tr class="{{ 'match-row' if baseId_correct else 'mismatch-row' }}">
-            <td width="30%">原种编号</td>
+            <td width="35%">原种编号</td>
             <td>{{ baseId }}</td>
         </tr>
         <tr class="{{ 'match-row' if variants_correct else 'mismatch-row' }}">

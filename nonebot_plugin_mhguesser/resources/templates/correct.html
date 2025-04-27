@@ -5,6 +5,22 @@
         body {
             margin: 15px;
             line-height: 1.6;
+            position: relative;
+            max-width: {{ width }}px;
+            text-align: center;
+        }
+        body::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url("{{ image }}");
+            background-size: {{ width }}px auto;
+            background-position: center center;
+            opacity: 0.5;
+            z-index: -1;
+        }
+        table {
+            margin: 0 auto;
         }
         .answer-title {
             color: #2e7d32;
@@ -21,7 +37,7 @@
         }
         .answer-table td:first-child {
             font-weight: bold;
-            width: 30%;
+            width: 35%;
         }
         .monster-icon {
             display: inline-block;

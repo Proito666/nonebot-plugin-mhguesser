@@ -7,6 +7,7 @@ env = Environment(
     loader=FileSystemLoader(Path(__file__).parent / "resources/templates"),
     autoescape=True
 )
+width=600
 
 async def render_guess_result(
     guessed_monster: Optional[Dict],
@@ -40,13 +41,13 @@ async def render_guess_result(
         size_class=comparison["size"],
         attributes=attributes_html,
         iconUrl=guessed_monster["iconUrl"],
-        has_match=bool(comparison["attributes"]["common"])
+        has_match=bool(comparison["attributes"]["common"]),
+        image=guessed_monster["image"],
+        width=width
     )
-    return await md_to_pic(html, width=600)
+    return await md_to_pic(html, width)
 
 async def render_correct_answer(monster: Dict) -> bytes:
-    if not monster:
-        return await md_to_pic("错误：怪物数据不存在", width=600)
     
     return await md_to_pic(
         env.get_template("correct.html").render(
@@ -58,7 +59,9 @@ async def render_correct_answer(monster: Dict) -> bytes:
             size=monster.get("size", ""),
             attributes=monster.get("attributes", ""),
             variants=monster.get("variants", 0),
-            iconUrl=monster.get("iconUrl", "")
+            iconUrl=monster.get("iconUrl", ""),
+            image=monster.get("image", ""),
+            width=width
         ),
-        width=600
+        width
     )
