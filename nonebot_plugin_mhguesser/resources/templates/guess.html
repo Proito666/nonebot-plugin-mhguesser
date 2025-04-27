@@ -16,7 +16,8 @@
             background-image: url("{{ image }}");
             background-size: {{ width }}px auto;
             background-position: center center;
-            opacity: 0.5;
+            background-repeat: no-repeat;
+            opacity: 0.3;
             z-index: -1;
         }
         table {
@@ -72,7 +73,7 @@
     </div>
     <table>
         <tr class="{{ 'match-row' if baseId_correct else 'mismatch-row' }}">
-            <td width="35%">原种编号</td>
+            <td width="40%">原种编号</td>
             <td>{{ baseId }}</td>
         </tr>
         <tr class="{{ 'match-row' if variants_correct else 'mismatch-row' }}">

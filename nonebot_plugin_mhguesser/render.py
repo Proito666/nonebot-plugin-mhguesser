@@ -1,13 +1,14 @@
 from pathlib import Path
 from typing import Dict, Optional
 from jinja2 import Environment, FileSystemLoader
-from nonebot_plugin_htmlrender import md_to_pic
+from nonebot_plugin_htmlrender import html_to_pic
 
 env = Environment(
     loader=FileSystemLoader(Path(__file__).parent / "resources/templates"),
     autoescape=True
 )
-width=600
+width=400
+height=300
 
 async def render_guess_result(
     guessed_monster: Optional[Dict],
@@ -45,11 +46,11 @@ async def render_guess_result(
         image=guessed_monster["image"],
         width=width
     )
-    return await md_to_pic(html, width)
+    return await html_to_pic(html, viewport={"width": width, "height": height})
 
 async def render_correct_answer(monster: Dict) -> bytes:
     
-    return await md_to_pic(
+    return await html_to_pic(
         env.get_template("correct.html").render(
             name=monster.get("name", "未知怪物"),
             species=monster.get("species", ""),
@@ -62,6 +63,4 @@ async def render_correct_answer(monster: Dict) -> bytes:
             iconUrl=monster.get("iconUrl", ""),
             image=monster.get("image", ""),
             width=width
-        ),
-        width
-    )
+        ), viewport={"width": width, "height": height})
