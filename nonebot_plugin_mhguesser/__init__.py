@@ -1,12 +1,15 @@
-from nonebot import on_message, get_driver, require
-from nonebot.plugin import PluginMetadata
+from nonebot import get_driver, require
+from nonebot.plugin import PluginMetadata, inherit_supported_adapters
 from nonebot.adapters import Event
 from nonebot.matcher import Matcher
 from nonebot.rule import Rule
-from nonebot.typing import T_State
+from nonebot.params import Depends
+from nonebot.typing import T_State, Annotated
 require("nonebot_plugin_alconna")
+require("nonebot_plugin_uninfo")
 require("nonebot_plugin_htmlrender")
 
+from nonebot_plugin_uninfo import Uninfo
 from nonebot_plugin_alconna import UniMessage, Image, on_alconna
 from .config import Config
 
@@ -21,10 +24,18 @@ mhstart - 开始游戏
 结束 - 结束游戏
 直接输入怪物名猜测""",
     homepage="https://github.com/Proito666/nonebot-plugin-mhguesser",
-    supported_adapters={"~onebot.v11"},
+    supported_adapters=inherit_supported_adapters(
+        "nonebot_plugin_alconna", "nonebot_plugin_uninfo"
+    ),
     type="application",
     config=Config,
 )
+
+def get_user_id(uninfo: Uninfo) -> str:
+    return f"{uninfo.scope}_{uninfo.self_id}_{uninfo.scene_path}"
+
+
+UserId = Annotated[str, Depends(get_user_id)]
 
 game = MonsterGuesser()
 driver = get_driver()
@@ -40,11 +51,13 @@ def is_end_command() -> Rule:
     return Rule(_checker)
 
 start_cmd = on_alconna("mhstart", aliases={"怪物猎人开始"})
-end_cmd = on_message(rule=is_end_command() & is_playing())
-guess_matcher = on_message(rule=is_playing(), priority=15)
+end_cmd = on_alconna(rule=is_end_command() & is_playing())
+guess_matcher = on_alconna(rule=is_playing(), priority=15)
 
 @start_cmd.handle()
-async def handle_start(event: Event, matcher: Matcher):
+async def handle_start(event: Event, matcher: Matcher, user_id: UserId, uninfo: Uninfo):
+    print(user_id)
+    print(uninfo)
     if game.get_game(event):
         await matcher.finish("游戏已在进行中！")
     

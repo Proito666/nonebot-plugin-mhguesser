@@ -5,7 +5,7 @@
 groups = ["default"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:2709b40aba4995ebffccba05b227c514d7eaa38f9f73d41f04e8a9121eee7376"
+content_hash = "sha256:bdcb1af4e081b0ab088940bc0e400302102beb976219be5fb320dd497f16b900"
 
 [[metadata.targets]]
 requires_python = "~=3.9"
@@ -480,6 +480,21 @@ dependencies = [
 files = [
     {file = "nonebot_plugin_htmlrender-0.6.5-py3-none-any.whl", hash = "sha256:cdfecac75eecc9509021b20482fde5058935d9797b0efd69738b4855b7ee1458"},
     {file = "nonebot_plugin_htmlrender-0.6.5.tar.gz", hash = "sha256:1a7061f38b4817c79e8a0ca510e683a740ae350797a9575ad8207e155fe61062"},
+]
+
+[[package]]
+name = "nonebot-plugin-uninfo"
+version = "0.7.3"
+requires_python = ">=3.9"
+summary = "Universal Information Model for Nonebot2"
+groups = ["default"]
+dependencies = [
+    "importlib-metadata>=7.2.1",
+    "nonebot2>=2.4.2",
+]
+files = [
+    {file = "nonebot_plugin_uninfo-0.7.3-py3-none-any.whl", hash = "sha256:d45e97aaaebaf6b41ec0c625859216e61700e6a2929cbe0ee659a71b470fdd08"},
+    {file = "nonebot_plugin_uninfo-0.7.3.tar.gz", hash = "sha256:254922908d8b8c60ba63c7216d4d8de54ebb7e56ef91b3b360ebd810dcff4d48"},
 ]
 
 [[package]]
