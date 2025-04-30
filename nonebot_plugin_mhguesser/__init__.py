@@ -1,10 +1,8 @@
-from nonebot import get_driver, require
+from nonebot import on_message, get_driver, require
 from nonebot.plugin import PluginMetadata, inherit_supported_adapters
 from nonebot.adapters import Event
 from nonebot.matcher import Matcher
 from nonebot.rule import Rule
-from nonebot.params import Depends
-from nonebot.typing import T_State, Annotated
 require("nonebot_plugin_alconna")
 require("nonebot_plugin_uninfo")
 require("nonebot_plugin_htmlrender")
@@ -30,51 +28,37 @@ mhstart - 开始游戏
     type="application",
     config=Config,
 )
-
-def get_user_id(uninfo: Uninfo) -> str:
-    return f"{uninfo.scope}_{uninfo.self_id}_{uninfo.scene_path}"
-
-
-UserId = Annotated[str, Depends(get_user_id)]
-
 game = MonsterGuesser()
 driver = get_driver()
 
 def is_playing() -> Rule:
-    async def _checker(event: Event, state: T_State) -> bool:
-        return bool(game.get_game(event))
-    return Rule(_checker)
-
-def is_end_command() -> Rule:
-    async def _checker(event: Event, state: T_State) -> bool:
-        return event.get_plaintext().strip() == "结束"
+    async def _checker(uninfo: Uninfo) -> bool:
+        return bool(game.get_game(uninfo))
     return Rule(_checker)
 
 start_cmd = on_alconna("mhstart", aliases={"怪物猎人开始"})
-end_cmd = on_alconna(rule=is_end_command() & is_playing())
-guess_matcher = on_alconna(rule=is_playing(), priority=15)
+end_cmd = on_alconna("结束", rule=is_playing())
+guess_matcher = on_message(rule=is_playing(), priority=15)
 
 @start_cmd.handle()
-async def handle_start(event: Event, matcher: Matcher, user_id: UserId, uninfo: Uninfo):
-    print(user_id)
-    print(uninfo)
-    if game.get_game(event):
+async def handle_start(uninfo: Uninfo, matcher: Matcher):
+    if game.get_game(uninfo):
         await matcher.finish("游戏已在进行中！")
     
-    game.start_new_game(event)
+    game.start_new_game(uninfo)
     await matcher.send(f"游戏开始！你有{game.max_attempts}次猜测机会，直接输入怪物名即可")
 
 @end_cmd.handle()
-async def handle_end(event: Event):
-    monster = game.get_game(event)["monster"]
-    game.end_game(event)
+async def handle_end(uninfo: Uninfo):
+    monster = game.get_game(uninfo)["monster"]
+    game.end_game(uninfo)
     img = await render_correct_answer(monster)
     await UniMessage(Image(raw=img)).send()
 
 @guess_matcher.handle()
-async def handle_guess(event: Event):
+async def handle_guess(uninfo: Uninfo, event: Event):
     # 检查游戏状态
-    game_data = game.get_game(event)
+    game_data = game.get_game(uninfo)
     if not game_data:
         return
     guess_name = event.get_plaintext().strip()
@@ -85,11 +69,10 @@ async def handle_guess(event: Event):
         await UniMessage.text(f"已经猜过【{guess_name}】了，请尝试其他怪物").send()
         return
         
-    guess_name = event.get_plaintext().strip()
-    correct, guessed, comparison = game.guess(event, guess_name)
+    correct, guessed, comparison = game.guess(uninfo, guess_name)
     
     if correct:
-        game.end_game(event)
+        game.end_game(uninfo)
         img = await render_correct_answer(guessed)
         await UniMessage([
             "猜对了！正确答案：",
@@ -109,7 +92,7 @@ async def handle_guess(event: Event):
     # 检查尝试次数
     if attempts_left <= 0:
         monster = game_data["monster"]
-        game.end_game(event)
+        game.end_game(uninfo)
         img = await render_correct_answer(monster)
         await UniMessage([
             "尝试次数已用尽！正确答案：",

@@ -5,7 +5,8 @@ from nonebot_plugin_htmlrender import html_to_pic
 
 env = Environment(
     loader=FileSystemLoader(Path(__file__).parent / "resources/templates"),
-    autoescape=True
+    autoescape=True,
+    enable_async=True
 )
 width=400
 height=300
@@ -24,8 +25,8 @@ async def render_guess_result(
                 attributes_html += f'<span class="attr-match">{attr}</span> '
             else:
                 attributes_html += f'{attr} '
-
-    html = env.get_template("guess.html").render(
+    template = env.get_template("guess.html")
+    html = await template.render_async(
         monster_name=guessed_monster["name"],
         attempts_left=attempts_left,
         species=guessed_monster["species"],
@@ -49,9 +50,8 @@ async def render_guess_result(
     return await html_to_pic(html, viewport={"width": width, "height": height})
 
 async def render_correct_answer(monster: Dict) -> bytes:
-    
-    return await html_to_pic(
-        env.get_template("correct.html").render(
+    template = env.get_template("correct.html")
+    html = await template.render_async(
             name=monster.get("name", "未知怪物"),
             species=monster.get("species", ""),
             debut=monster.get("debut", ""),
@@ -63,4 +63,6 @@ async def render_correct_answer(monster: Dict) -> bytes:
             iconUrl=monster.get("iconUrl", ""),
             image=monster.get("image", ""),
             width=width
-        ), viewport={"width": width, "height": height})
+        )
+
+    return await html_to_pic(html, viewport={"width": width, "height": height})

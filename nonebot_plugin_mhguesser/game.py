@@ -5,7 +5,7 @@ from pypinyin import lazy_pinyin
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 from datetime import datetime
-from nonebot.adapters import Event
+from nonebot_plugin_uninfo import Uninfo
 from .config import plugin_config
 
 class MonsterGuesser:
@@ -21,14 +21,14 @@ class MonsterGuesser:
         with open(self.data_path, "r", encoding="utf-8") as f:
             return json.load(f)
     
-    def get_session_id(self, event) -> str:
-        return f"group_{event.group_id}" if event.message_type == "group" else f"user_{event.user_id}"
+    def get_session_id(self, uninfo) -> str:
+        return f"{uninfo.scope}_{uninfo.self_id}_{uninfo.scene_path}"
 
-    def get_game(self, event: Event) -> Optional[Dict]:
-        return self.games.get(self.get_session_id(event))
+    def get_game(self, uninfo: Uninfo) -> Optional[Dict]:
+        return self.games.get(self.get_session_id(uninfo))
     
-    def start_new_game(self, event: Event) -> Dict:
-        session_id = self.get_session_id(event)
+    def start_new_game(self, uninfo: Uninfo) -> Dict:
+        session_id = self.get_session_id(uninfo)
         self.games[session_id] = {
             "monster": random.choice(self.monsters),
             "guesses": [],
@@ -36,8 +36,8 @@ class MonsterGuesser:
         }
         return self.games[session_id]
     
-    def guess(self, event: Event, name: str) -> Tuple[bool, Optional[Dict], Dict]:
-        game = self.get_game(event)
+    def guess(self, uninfo: Uninfo, name: str) -> Tuple[bool, Optional[Dict], Dict]:
+        game = self.get_game(uninfo)
         if not game or len(game["guesses"]) >= self.max_attempts:
             raise ValueError("游戏已结束")
 
@@ -89,8 +89,8 @@ class MonsterGuesser:
             "common": list(common) if common else []
         }
     
-    def end_game(self, event: Event):
+    def end_game(self, uninfo: Uninfo):
         try:
-            self.games.pop(self.get_session_id(event))
+            self.games.pop(self.get_session_id(uninfo))
         except (AttributeError, KeyError):
             pass
