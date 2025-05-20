@@ -39,15 +39,31 @@
             color: #2e7d32;
             font-weight: bold;
         }
+        /* 发售时间比较样式 */
+        .debut-earlier td:nth-child(2)::after {
+            content: " (偏早) ↑";
+            color: #0277bd;
+            font-weight: bold;
+        }
+        .debut-later td:nth-child(2)::after {
+            content: " (偏晚) ↓";
+            color: #ff8f00;
+            font-weight: bold;
+        }
+        .debut-same td:nth-child(2)::after {
+            content: " ✓";
+            color: #2e7d32;
+            font-weight: bold;
+        }
         .guess-title{
-            font-weight:bold; 
+            font-weight:bold;
             font-size: 1.3em;
             margin-bottom:10px;
         }
-        .match-row,.size-same { background-color: rgba(232, 245, 233, 0.5) !important; }
+        .match-row,.size-same,.debut-same { background-color: rgba(232, 245, 233, 0.5) !important; }
         .mismatch-row { background-color: rgba(255, 235, 238, 0.5) !important; }
-        .size-higher { background-color: rgba(227, 242, 253, 0.5) !important; }
-        .size-lower { background-color: rgba(255, 243, 205, 0.5) !important; }
+        .size-higher,.debut-earlier { background-color: rgba(227, 242, 253, 0.5) !important; }
+        .size-lower,.debut-later { background-color: rgba(255, 243, 205, 0.5) !important; }
         .attr-match {
             background-color: #81c784;
             padding: 2px 5px;
@@ -84,7 +100,7 @@
             <td>衍生种类</td>
             <td>{{ variantType }}</td>
         </tr>
-        <tr class="{{ 'match-row' if debut_correct else 'mismatch-row' }}">
+        <tr class="debut-{{ debut_order }}">
             <td>初登场作品</td>
             <td>{{ debut }}</td>
         </tr>

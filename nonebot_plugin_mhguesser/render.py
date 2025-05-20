@@ -33,6 +33,7 @@ async def render_guess_result(
         species_correct=comparison["species"],
         debut=guessed_monster["debut"],
         debut_correct=comparison["debut"],
+        debut_order=comparison["debut_order"],  # 添加发售顺序比较结果
         baseId=guessed_monster["baseId"],
         baseId_correct=comparison["baseId"],
         variants=guessed_monster["variants"],
