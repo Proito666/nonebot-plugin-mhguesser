@@ -37,8 +37,7 @@ def is_playing() -> Rule:
     return Rule(_checker)
 
 start_cmd = on_alconna("mhstart", aliases={"怪物猎人开始"})
-end_cmd = on_alconna("结束", rule=is_playing())
-guess_matcher = on_message(rule=is_playing(), priority=15)
+guess_matcher = on_message(rule=is_playing(), priority=15，block=False))
 
 @start_cmd.handle()
 async def handle_start(uninfo: Uninfo, matcher: Matcher):
@@ -48,7 +47,6 @@ async def handle_start(uninfo: Uninfo, matcher: Matcher):
     game.start_new_game(uninfo)
     await matcher.send(f"游戏开始！你有{game.max_attempts}次猜测机会，直接输入怪物名即可")
 
-@end_cmd.handle()
 async def handle_end(uninfo: Uninfo):
     monster = game.get_game(uninfo)["monster"]
     game.end_game(uninfo)
@@ -57,12 +55,14 @@ async def handle_end(uninfo: Uninfo):
 
 @guess_matcher.handle()
 async def handle_guess(uninfo: Uninfo, event: Event):
+    guess_name = event.get_plaintext().strip()
+    if guess_name in ("", "结束", "mhstart"):
+        if guess_name == "结束":
+            await handle_end(uninfo)
+        return
     # 检查游戏状态
     game_data = game.get_game(uninfo)
     if not game_data:
-        return
-    guess_name = event.get_plaintext().strip()
-    if not guess_name or guess_name in ("结束", "mhstart"):
         return
     # 检查重复猜测
     if any(g["name"] == guess_name for g in game_data["guesses"]):
