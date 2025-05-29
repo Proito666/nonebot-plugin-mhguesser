@@ -37,7 +37,7 @@ def is_playing() -> Rule:
     return Rule(_checker)
 
 start_cmd = on_alconna("mhstart", aliases={"怪物猎人开始"})
-guess_matcher = on_message(rule=is_playing(), priority=15，block=False))
+guess_matcher = on_message(rule=is_playing(), priority=15, block=False)
 
 @start_cmd.handle()
 async def handle_start(uninfo: Uninfo, matcher: Matcher):
