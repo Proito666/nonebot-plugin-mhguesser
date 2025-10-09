@@ -3261,5 +3261,18 @@
     "attributes": "火/雷",
     "image": "https://cdnimg-v2.gamekee.com/wiki2.0/images/w_1000/h_563/815/69307/2025/2/26/753646.png",
     "iconUrl": "https://cdnimg-v2.gamekee.com/wiki2.0/images/w_512/h_512/815/69307/2025/1/21/800179.png?x-image-process=image/resize,m_lfit,h_300,w_300&image_process=resize,mid,w_300,h_300"
+  },
+  {
+    "id": 166,
+    "name": "游星欧米茄",
+    "baseId": 166,
+    "variants": 0,
+    "variantType": "原种",
+    "debut": "怪物猎人荒野",
+    "species": "???",
+    "size": 1181.85,
+    "attributes": "火/冰",
+    "image": "https://cdnimg-v2.gamekee.com/wiki2.0/images/w_1920/h_1080/815/69307/2025/8/27/940197.png",
+    "iconUrl": "https://cdnimg-v2.gamekee.com/wiki2.0/images/w_512/h_512/815/69307/2025/8/30/252598.png?x-image-process=image/resize,m_lfit,h_300,w_300/ignore-error,1&image_process=resize,mid,w_300,h_300"
   }
 ]
