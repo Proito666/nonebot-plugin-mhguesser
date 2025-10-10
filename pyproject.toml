@@ -1,6 +1,6 @@
 [project]
 name = "nonebot-plugin-mhguesser"
-version = "0.2.6"
+version = "0.2.7"
 description = "怪物猎人猜BOSS"
 authors = [
     {name = "Proito666", email = "Proito666@github.com"},

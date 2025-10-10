@@ -13,7 +13,7 @@
             content: "";
             position: absolute;
             inset: 0;
-            background-image: url("{{ image }}");
+            background-image: url("{{ monster.image }}");
             background-size: {{ width }}px auto;
             background-position: center center;
             background-repeat: no-repeat;
@@ -50,17 +50,17 @@
 </head>
 <body>
     <div class="answer-title">
-        正确答案: {{ name }}
-        <img src="{{ iconUrl }}" class="monster-icon">
+        正确答案: {{ monster.name }}
+        <img src="{{ monster.iconUrl }}" class="monster-icon">
     </div>
     <table class="answer-table">
-        <tr><td>原种编号</td><td>{{ baseId }}</td></tr>
-        <tr><td>原种衍生种数量</td><td>{{ variants }}</td></tr>
-        <tr><td>衍生种类</td><td>{{ variantType }}</td></tr>
-        <tr><td>初登场作品</td><td>{{ debut }}</td></tr>
-        <tr><td>怪物种族</td><td>{{ species }}</td></tr>
-        <tr><td>尺寸</td><td>{{ size }}</td></tr>
-        <tr><td>属性/异常</td><td>{{ attributes }}</td></tr>
+        <tr><td>原种编号</td><td>{{ monster.baseId }}</td></tr>
+        <tr><td>原种衍生种数量</td><td>{{ monster.variants }}</td></tr>
+        <tr><td>衍生种类</td><td>{{ monster.variantType }}</td></tr>
+        <tr><td>初登场作品</td><td>{{ monster.debut }}</td></tr>
+        <tr><td>怪物种族</td><td>{{ monster.species }}</td></tr>
+        <tr><td>尺寸</td><td>{{ monster.size }}</td></tr>
+        <tr><td>属性/异常</td><td>{{ monster.attributes }}</td></tr>
     </table>
 </body>
 </html>
