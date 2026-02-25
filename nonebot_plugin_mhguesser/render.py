@@ -23,9 +23,21 @@ async def render_guess_result(
         comparison=comparison,
         width=width
     )
-    return await html_to_pic(html, viewport={"width": width, "height": height})
+    return await html_to_pic(html,
+                            viewport={"width": width, "height": height},
+                            extra_http_headers={
+                                "Referer": "https://www.gamekee.com/",
+                                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+                            }
+                        )
 
 async def render_correct_answer(monster: Dict) -> bytes:
     template = env.get_template("correct.html")
     html = await template.render_async(monster=monster, width=width)
-    return await html_to_pic(html, viewport={"width": width, "height": height})
+    return await html_to_pic(html,
+                            viewport={"width": width, "height": height},
+                            extra_http_headers={
+                                "Referer": "https://www.gamekee.com/",
+                                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+                            }
+                        )
