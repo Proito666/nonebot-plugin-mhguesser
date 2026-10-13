@@ -1,0 +1,54 @@
+name: Publish to PyPI
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'pyproject.toml'
+  workflow_dispatch:
+    inputs:
+      force:
+        description: '强制发布，跳过版本检查'
+        type: boolean
+        default: false
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.check.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check if version changed
+        id: check
+        run: |
+          CURRENT_VERSION=$(grep -Po '(?<=^version = ")[^"]*' pyproject.toml)
+          PREVIOUS_VERSION=$(git show HEAD~1:pyproject.toml 2>/dev/null | grep -Po '(?<=^version = ")[^"]*' || echo "none")
+          echo "Current: $CURRENT_VERSION / Previous: $PREVIOUS_VERSION"
+          if [ "$CURRENT_VERSION" != "$PREVIOUS_VERSION" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+  publish:
+    needs: check-version
+    if: needs.check-version.outputs.changed == 'true' || github.event.inputs.force == 'true'
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PDM
+        uses: pdm-project/setup-pdm@v4
+        with:
+          python-version: '3.12'
+
+      - name: Publish to PyPI
+        run: pdm publish
