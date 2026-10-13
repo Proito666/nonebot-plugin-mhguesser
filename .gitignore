@@ -1,3 +1,4 @@
+.vscode
 .pdm-build
 .pdm-python
 __pycache__
