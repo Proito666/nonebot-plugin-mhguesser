@@ -11,11 +11,14 @@ _✨ <怪物猎人猜BOSS> ✨_
 <a href="https://pypi.python.org/pypi/nonebot_plugin_mhguesser">
   <img alt="PyPI - Version" src="https://img.shields.io/pypi/v/nonebot_plugin_mhguesser">
 </a>
-<img src="https://img.shields.io/badge/python-3.9+-blue.svg" alt="python">
+<img src="https://img.shields.io/badge/python-3.10+-blue.svg" alt="python">
 </div>
 
 
  [`怪物猎人：猜猜BOSS`](https://mhguesser.netlify.app/) 的nonebot插件简单实现
+
+> ⚠️ 依赖要求：**nonebot-plugin-htmlrender ≥ 0.8**（0.8 起 API 完全重写）与 **Python ≥ 3.10**；
+> 并需在 env 中配置 `RENDER__PROVIDER=playwright` 才能渲染。
 
 ## 💿 安装
 <details>
@@ -64,6 +67,7 @@ _✨ <怪物猎人猜BOSS> ✨_
 | 配置项 | 必填 | 类型 | 默认值 | 说明 |
 |:-----:|:----:|:----:|:----:|:----:|
 | mhguesser_max_attempts | 否 | int | 10 | 最大尝试次数 |
+| RENDER__PROVIDER | 是 | str | 无 | htmlrender 渲染提供方，需设为 `playwright` |
 
 ## 🎉 使用
 mhstart: 开始游戏
