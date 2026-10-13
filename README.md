@@ -28,17 +28,13 @@ _✨ <怪物猎人猜BOSS> ✨_
 ### 安装命令
 
 <details>
-<summary>使用 nb-cli 安装</summary>
+<summary>使用 nb-cli 安装(仅最新版)</summary>
 
 在 nonebot2 项目的根目录下打开命令行，输入以下指令即可安装：
 
 **htmlrender >= 0.8：**
 
     nb plugin install nonebot-plugin-mhguesser
-
-**htmlrender < 0.8：**
-
-    nb plugin install "nonebot-plugin-mhguesser==0.2.X"
 
 </details>
 
